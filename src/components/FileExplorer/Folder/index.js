@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import File from "../File";
+import DirectoryItem from "../DirectoryItem";
 import Icon from "../Icon";
 
 const Folder = ({ folder }) => {
@@ -20,15 +20,12 @@ const Folder = ({ folder }) => {
       </div>
       {expanded && folder.children && (
         <div style={{ marginLeft: "20px" }}>
-          {folder.children.map((child) =>
-            child.type === "folder" ? (
-              <Folder key={child.id} folder={child} />
-            ) : (
-              <File key={child.id} file={child} />
-            )
-          )}
+          {folder.children.map((child) => (
+            <DirectoryItem key={child.id} item={child} />
+          ))}
         </div>
       )}
+      {/* <Icon type={"arrowDown"} /> */}
     </div>
   );
 };
