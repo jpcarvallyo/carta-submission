@@ -6,7 +6,10 @@ const Icon = ({ type }) => {
   const IconComponent = getFileIcon(type);
 
   return (
-    <div className="iconWrapper" onClick={handleDelete}>
+    <div
+      className="iconWrapper"
+      onClick={() => (type === "delete" ? handleDelete() : null)}
+    >
       <IconComponent />
     </div>
   );
