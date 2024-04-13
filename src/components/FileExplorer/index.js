@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
-import directoryUtils from "../../api";
+import React from "react";
+import { useFileExplorer } from "../contexts/";
 import DirectoryItem from "./DirectoryItem";
 import "./style.css";
 
 const FileExplorer = () => {
-  const [directoryTree, setDirectoryTree] = useState(null);
-
-  useEffect(() => {
-    const fetchDirectoryTree = async () => {
-      const directoryTreeResults = await directoryUtils.getDirectoryTree();
-      setDirectoryTree(directoryTreeResults);
-    };
-    fetchDirectoryTree();
-  }, []);
+  const { directoryTree } = useFileExplorer();
 
   return (
     <div id="fileExplorer">

@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFileExplorer } from "../../contexts";
 import Icon from "../Icon";
 import { getFileExtension } from "../Icon";
 
 const File = ({ file }) => {
-  const [hovered, setHovered] = useState(false);
+  const { handleMouseHover, hoveredItemId } = useFileExplorer();
+
   return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: `${hovered ? "space-between" : ""}`,
+        justifyContent: `${hoveredItemId === file.id ? "space-between" : ""}`,
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => handleMouseHover(file.id)}
+      onMouseLeave={() => handleMouseHover(null)}
     >
       <div
         style={{
@@ -23,7 +25,7 @@ const File = ({ file }) => {
         <Icon type={getFileExtension(file.name)} />
         {file.name}
       </div>
-      {hovered ? <Icon type={"delete"} /> : null}
+      {hoveredItemId === file.id ? <Icon type={"delete"} /> : null}
     </div>
   );
 };

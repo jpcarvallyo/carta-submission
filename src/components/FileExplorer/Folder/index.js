@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useFileExplorer } from "../../contexts";
 import DirectoryItem from "../DirectoryItem";
 import Icon from "../Icon";
 
 const Folder = ({ folder }) => {
   const [expanded, setExpanded] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const { handleMouseHover, hoveredItemId } = useFileExplorer();
 
   const toggleFolder = () => {
     setExpanded(!expanded);
@@ -17,10 +18,12 @@ const Folder = ({ folder }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: `${hovered ? "space-between" : ""}`,
+          justifyContent: `${
+            hoveredItemId === folder.id ? "space-between" : ""
+          }`,
         }}
-        onMouseOver={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={() => handleMouseHover(folder.id)}
+        onMouseLeave={() => handleMouseHover(null)}
       >
         <div
           style={{
@@ -36,7 +39,7 @@ const Folder = ({ folder }) => {
           {folder.name}
         </div>
 
-        {hovered ? <Icon type={"delete"} /> : null}
+        {hoveredItemId === folder.id ? <Icon type={"delete"} /> : null}
       </div>
       {expanded && folder.children && (
         <div style={{ marginLeft: "20px" }}>

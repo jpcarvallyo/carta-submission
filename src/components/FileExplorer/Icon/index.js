@@ -1,4 +1,5 @@
 import Icons from "../../../assets/icons";
+import { useFileExplorer } from "../../contexts";
 
 const fileTypeIcons = {
   arrowDown: Icons.ArrowDownFileIcon,
@@ -80,12 +81,15 @@ const retrieveFileIcon = (type) => {
   }
 };
 
-const getIcon = (type) => {
+const Icon = ({ type }) => {
+  const { handleDelete } = useFileExplorer();
   const IconComponent = retrieveFileIcon(type);
 
-  return <IconComponent />;
+  return (
+    <div onClick={handleDelete}>
+      <IconComponent />
+    </div>
+  );
 };
-
-const Icon = ({ type }) => getIcon(type);
 
 export default Icon;

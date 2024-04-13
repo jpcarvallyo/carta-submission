@@ -2,4 +2,8 @@
   width: 300px;
   border: 2px solid white;
   height: 100vh;
+  padding: 10px;
+  h2 {
+    margin-top: 0;
+  }
 }
