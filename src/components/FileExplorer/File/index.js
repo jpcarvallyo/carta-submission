@@ -1,7 +1,7 @@
 import React from "react";
 import { useFileExplorer } from "../../contexts";
 import Icon from "../Icon";
-import { getFileExtension } from "../Icon";
+import { getFileExtension } from "../../../utils";
 
 const File = ({ file }) => {
   const { handleMouseHover, hoveredItemId } = useFileExplorer();
