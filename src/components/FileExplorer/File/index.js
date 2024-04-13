@@ -24,7 +24,9 @@ const File = ({ file }) => {
         }}
       >
         <Icon type={getFileExtension(file.name)} />
-        <p>{file.name}</p>
+        <p className={hoveredItemId === file.id ? "highlightedWhite" : ""}>
+          {file.name}
+        </p>
       </div>
       {hoveredItemId === file.id ? <Icon type={"delete"} /> : null}
     </div>
