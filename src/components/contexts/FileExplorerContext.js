@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import directoryUtils from "../../api";
+import { getNextId } from "../../utils";
 
 const FileExplorerContext = createContext();
 
@@ -20,7 +21,9 @@ export const FileExplorerProvider = ({ children }) => {
   }, []);
 
   const handleDelete = async () => {
+    const nextId = getNextId(directoryTree, hoveredItemId);
     const newDirectoryTree = await directoryUtils.deleteById(hoveredItemId);
+    setHoveredItem(nextId);
     setDirectoryTree(newDirectoryTree);
   };
 
