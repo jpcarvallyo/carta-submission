@@ -24,7 +24,7 @@ const File = ({ file }) => {
         }}
       >
         <Icon type={getFileExtension(file.name)} />
-        {file.name}
+        <p>{file.name}</p>
       </div>
       {hoveredItemId === file.id ? <Icon type={"delete"} /> : null}
     </div>

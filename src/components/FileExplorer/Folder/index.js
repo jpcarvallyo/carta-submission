@@ -36,7 +36,7 @@ const Folder = ({ folder }) => {
           ) : (
             <Icon type={"arrowRight"} />
           )}
-          {folder.name}
+          <p>{folder.name}</p>
         </div>
 
         {hoveredItemId === folder.id ? <Icon type={"delete"} /> : null}

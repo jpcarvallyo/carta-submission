@@ -22,9 +22,17 @@
 .file,
 .folder {
   margin-left: 10px;
+  p {
+    margin: 6px 0;
+  }
 }
 
 .iconWrapper {
   display: flex;
   align-items: center;
+  margin-right: 6px;
+}
+
+.deleteIcon {
+  margin-right: 0;
 }
