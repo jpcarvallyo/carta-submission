@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useFileExplorer } from "../../contexts";
 import DirectoryItem from "../DirectoryItem";
 import Icon from "../Icon";
+import { sortDirectoryItemsByType } from "../../../utils";
 
 const Folder = ({ folder }) => {
   const [expanded, setExpanded] = useState(false);
@@ -45,7 +46,7 @@ const Folder = ({ folder }) => {
       </div>
       {expanded && folder.children && (
         <div style={{ marginLeft: "20px" }}>
-          {folder.children.map((child) => (
+          {sortDirectoryItemsByType(folder.children).map((child) => (
             <DirectoryItem key={child.id} item={child} />
           ))}
         </div>
