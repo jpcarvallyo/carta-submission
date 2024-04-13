@@ -4,6 +4,7 @@ import Icon from "../Icon";
 
 const Folder = ({ folder }) => {
   const [expanded, setExpanded] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const toggleFolder = () => {
     setExpanded(!expanded);
@@ -13,10 +14,29 @@ const Folder = ({ folder }) => {
     <div>
       <div
         onClick={toggleFolder}
-        style={{ display: "flex", alignItems: "center" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: `${hovered ? "space-between" : ""}`,
+        }}
+        onMouseOver={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        {expanded ? <Icon type={"arrowDown"} /> : <Icon type={"arrowRight"} />}
-        {folder.name}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {expanded ? (
+            <Icon type={"arrowDown"} />
+          ) : (
+            <Icon type={"arrowRight"} />
+          )}
+          {folder.name}
+        </div>
+
+        {hovered ? <Icon type={"delete"} /> : null}
       </div>
       {expanded && folder.children && (
         <div style={{ marginLeft: "20px" }}>
@@ -25,7 +45,6 @@ const Folder = ({ folder }) => {
           ))}
         </div>
       )}
-      {/* <Icon type={"arrowDown"} /> */}
     </div>
   );
 };

@@ -10,7 +10,7 @@ const fileTypeIcons = {
   jsFile: Icons.JsFileIcon,
   jsonFile: Icons.JsonFileIcon,
   readmeFile: Icons.ReadMeFileIcon,
-  x: Icons.XIcon,
+  x: Icons.XFileIcon,
   yarnFile: Icons.YarnFileIcon,
 };
 
@@ -72,7 +72,7 @@ const retrieveFileIcon = (type) => {
       return fileTypeIcons.yarnFile;
     }
     case "delete": {
-      return fileTypeIcons.XFileIcon;
+      return fileTypeIcons.x;
     }
     default: {
       return fileTypeIcons.defaultFile;
