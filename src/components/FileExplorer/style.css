@@ -2,7 +2,7 @@
   --contrast-black: rgba(49, 51, 65, 1);
 }
 
-#fileExplorer {
+#file-explorer {
   width: 300px;
   border: 2px solid var(--contrast-black);
   height: 100vh;
@@ -27,16 +27,21 @@
   }
 }
 
-.iconWrapper {
+.icon-wrapper {
   display: flex;
   align-items: center;
   margin-right: 6px;
 }
 
-.deleteIcon {
+.delete-icon {
   margin-right: 0;
 }
 
-.highlightedWhite {
+.highlighted-white {
   color: white;
+}
+
+.row-center {
+  display: flex;
+  align-items: center;
 }

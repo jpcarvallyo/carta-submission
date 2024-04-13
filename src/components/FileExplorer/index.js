@@ -7,12 +7,12 @@ const FileExplorer = () => {
   const { directoryTree } = useFileExplorer();
 
   return (
-    <div id="fileExplorer">
+    <aside id="file-explorer">
       <h2>{directoryTree?.name.toUpperCase()}</h2>
       {directoryTree?.children.map((child) => (
         <DirectoryItem key={child.id} item={child} />
       ))}
-    </div>
+    </aside>
   );
 };
 

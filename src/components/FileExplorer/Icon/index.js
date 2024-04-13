@@ -7,7 +7,7 @@ const Icon = ({ type }) => {
 
   return (
     <div
-      className={`iconWrapper ${type === "delete" ? "deleteIcon" : ""}`}
+      className={`icon-wrapper ${type === "delete" ? "delete-icon" : ""}`}
       onClick={() => (type === "delete" ? handleDelete() : null)}
     >
       <IconComponent />

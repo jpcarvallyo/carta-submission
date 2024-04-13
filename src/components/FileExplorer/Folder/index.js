@@ -17,27 +17,21 @@ const Folder = ({ folder }) => {
       <div
         onClick={toggleFolder}
         style={{
-          display: "flex",
-          alignItems: "center",
           justifyContent: `${
             hoveredItemId === folder.id ? "space-between" : ""
           }`,
         }}
+        className="row-center"
         onMouseEnter={() => handleMouseHover(folder.id)}
         onMouseLeave={() => handleMouseHover(null)}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <div className="row-center">
           {expanded ? (
             <Icon type={"arrowDown"} />
           ) : (
             <Icon type={"arrowRight"} />
           )}
-          <p className={hoveredItemId === folder.id ? "highlightedWhite" : ""}>
+          <p className={hoveredItemId === folder.id ? "highlighted-white" : ""}>
             {folder.name}
           </p>
         </div>

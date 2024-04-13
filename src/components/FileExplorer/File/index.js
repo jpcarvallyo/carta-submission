@@ -8,23 +8,16 @@ const File = ({ file }) => {
 
   return (
     <div
-      className="file"
+      className="file row-center"
       style={{
-        display: "flex",
-        alignItems: "center",
         justifyContent: `${hoveredItemId === file.id ? "space-between" : ""}`,
       }}
       onMouseEnter={() => handleMouseHover(file.id)}
       onMouseLeave={() => handleMouseHover(null)}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+      <div className="row-center">
         <Icon type={getFileExtension(file.name)} />
-        <p className={hoveredItemId === file.id ? "highlightedWhite" : ""}>
+        <p className={hoveredItemId === file.id ? "highlighted-white" : ""}>
           {file.name}
         </p>
       </div>
