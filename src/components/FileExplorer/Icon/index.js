@@ -6,7 +6,7 @@ const Icon = ({ type }) => {
   const IconComponent = getFileIcon(type);
 
   return (
-    <div onClick={handleDelete}>
+    <div className="iconWrapper" onClick={handleDelete}>
       <IconComponent />
     </div>
   );

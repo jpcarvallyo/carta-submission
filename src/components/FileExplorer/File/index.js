@@ -8,6 +8,7 @@ const File = ({ file }) => {
 
   return (
     <div
+      className="file"
       style={{
         display: "flex",
         alignItems: "center",

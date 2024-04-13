@@ -8,7 +8,7 @@ const FileExplorer = () => {
 
   return (
     <div id="fileExplorer">
-      <h2>{directoryTree?.name}</h2>
+      <h2>{directoryTree?.name.toUpperCase()}</h2>
       {directoryTree?.children.map((child) => (
         <DirectoryItem key={child.id} item={child} />
       ))}

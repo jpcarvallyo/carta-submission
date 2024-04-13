@@ -12,7 +12,7 @@ const Folder = ({ folder }) => {
   };
 
   return (
-    <div>
+    <div className="folder">
       <div
         onClick={toggleFolder}
         style={{

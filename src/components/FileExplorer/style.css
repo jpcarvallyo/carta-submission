@@ -1,9 +1,30 @@
+:root {
+  --contrast-black: rgba(49, 51, 65, 1);
+}
+
 #fileExplorer {
   width: 300px;
-  border: 2px solid white;
+  border: 2px solid var(--contrast-black);
   height: 100vh;
-  padding: 10px;
+  padding: 0;
+  border-left: 8px solid var(--contrast-black);
   h2 {
+    text-transform: capitalize;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: 400;
     margin-top: 0;
+    background-color: var(--contrast-black);
   }
+}
+
+.file,
+.folder {
+  margin-left: 10px;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
 }
