@@ -1,40 +1,47 @@
 export const getNextId = (node, targetId) => {
-  let nextNodeId = null;
-  let found = false;
-
-  const traverse = (node, targetId) => {
-    if (found) {
-      return;
-    }
+  // Flatten the tree structure for more efficient lookup
+  const flattenTree = (node, parent = null, index = 0) => {
+    const items = [];
 
     if (node.children) {
-      for (let i = 0; i < node.children.length; i++) {
-        const child = node.children[i];
-        if (child.id === targetId) {
-          if (i < node.children.length - 1) {
-            // If the target node is not the last child, get the ID of the next sibling
-            nextNodeId = node.children[i + 1].id;
-          } else {
-            // If the target node is the last child, traverse up to find a parent with a sibling
-            let parent = node.parent;
-            while (parent && !parent.sibling) {
-              parent = parent.parent;
-            }
-            if (parent && parent.sibling) {
-              nextNodeId = parent.sibling.id;
-            }
-          }
-          found = true;
-          return;
-        }
+      node.children.forEach((child, childIndex) => {
+        items.push({
+          ...child,
+          parent,
+          parentIndex: index,
+          siblingIndex: childIndex,
+          hasNextSibling: childIndex < node.children.length - 1,
+        });
+
         if (child.children) {
-          traverse(child, targetId);
+          items.push(...flattenTree(child, node, childIndex));
         }
-      }
+      });
     }
+
+    return items;
   };
 
-  traverse(node, targetId);
+  const flatItems = flattenTree(node);
+  const targetIndex = flatItems.findIndex((item) => item.id === targetId);
 
-  return nextNodeId;
+  if (targetIndex === -1) {
+    return null;
+  }
+
+  const targetItem = flatItems[targetIndex];
+
+  // Check if there's a next sibling
+  if (targetItem.hasNextSibling) {
+    const parentChildren = targetItem.parent?.children || node.children;
+    const targetSiblingIndex = targetItem.siblingIndex + 1;
+    return parentChildren[targetSiblingIndex]?.id || null;
+  }
+
+  // If no next sibling, find the next item in the flattened array
+  if (targetIndex < flatItems.length - 1) {
+    return flatItems[targetIndex + 1].id;
+  }
+
+  return null;
 };

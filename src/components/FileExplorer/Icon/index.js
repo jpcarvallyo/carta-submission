@@ -1,18 +1,28 @@
+import React, { useMemo, useCallback } from "react";
 import { useFileExplorer } from "../../contexts";
 import { getFileIcon } from "./getFileIcon";
 
-const Icon = ({ type }) => {
+const Icon = React.memo(({ type }) => {
   const { handleDelete } = useFileExplorer();
-  const IconComponent = getFileIcon(type);
+
+  const IconComponent = useMemo(() => getFileIcon(type), [type]);
+
+  const handleClick = useCallback(() => {
+    if (type === "delete") {
+      handleDelete();
+    }
+  }, [type, handleDelete]);
 
   return (
     <div
       className={`icon-wrapper ${type === "delete" ? "delete-icon" : ""}`}
-      onClick={() => (type === "delete" ? handleDelete() : null)}
+      onClick={handleClick}
     >
       <IconComponent />
     </div>
   );
-};
+});
+
+Icon.displayName = "Icon";
 
 export default Icon;

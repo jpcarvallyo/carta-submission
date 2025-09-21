@@ -1,4 +1,9 @@
 export const getFileExtension = (fileName) => {
+  // Handle edge cases
+  if (!fileName || typeof fileName !== "string") {
+    return "";
+  }
+
   // Find the last occurrence of "." in the file name
   const lastDotIndex = fileName.lastIndexOf(".");
 
@@ -7,9 +12,7 @@ export const getFileExtension = (fileName) => {
     return "";
   }
 
-  // Get the substring after the last "."
-  const extension = fileName.slice(lastDotIndex + 1);
-
-  // Convert the extension to lowercase to handle cases like '.JPG' or '.HTML'
-  return extension.toLowerCase();
+  // Get the substring after the last "." and convert to lowercase
+  // Handle cases like '.JPG' or '.HTML'
+  return fileName.slice(lastDotIndex + 1).toLowerCase();
 };

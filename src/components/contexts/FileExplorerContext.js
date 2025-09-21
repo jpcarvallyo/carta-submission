@@ -1,4 +1,11 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  useCallback,
+} from "react";
 import directoryUtils from "../../api";
 import { getNextId } from "../../utils";
 
@@ -8,9 +15,9 @@ export const FileExplorerProvider = ({ children }) => {
   const [directoryTree, setDirectoryTree] = useState(null);
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
-  const setHoveredItem = (itemId) => {
+  const setHoveredItem = useCallback((itemId) => {
     setHoveredItemId(itemId);
-  };
+  }, []);
 
   useEffect(() => {
     const fetchDirectoryTree = async () => {
@@ -20,28 +27,37 @@ export const FileExplorerProvider = ({ children }) => {
     fetchDirectoryTree();
   }, []);
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     const nextId = getNextId(directoryTree, hoveredItemId);
     const newDirectoryTree = await directoryUtils.deleteById(hoveredItemId);
     setHoveredItem(nextId);
     setDirectoryTree(newDirectoryTree);
-  };
+  }, [directoryTree, hoveredItemId, setHoveredItem]);
 
-  const handleMouseHover = (itemId) => {
+  const handleMouseHover = useCallback((itemId) => {
     setHoveredItemId(itemId);
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      directoryTree,
+      setDirectoryTree,
+      handleDelete,
+      hoveredItemId,
+      setHoveredItem,
+      handleMouseHover,
+    }),
+    [
+      directoryTree,
+      hoveredItemId,
+      handleDelete,
+      setHoveredItem,
+      handleMouseHover,
+    ]
+  );
 
   return (
-    <FileExplorerContext.Provider
-      value={{
-        directoryTree,
-        setDirectoryTree,
-        handleDelete,
-        hoveredItemId,
-        setHoveredItem,
-        handleMouseHover,
-      }}
-    >
+    <FileExplorerContext.Provider value={contextValue}>
       {children}
     </FileExplorerContext.Provider>
   );

@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useFileExplorer } from "../../contexts";
 import DirectoryItem from "../DirectoryItem";
 import Icon from "../Icon";
 import { sortDirectoryItemsByType } from "../../../utils";
 
-const Folder = ({ folder }) => {
+const Folder = React.memo(({ folder }) => {
   const [expanded, setExpanded] = useState(false);
   const { handleMouseHover, hoveredItemId } = useFileExplorer();
 
-  const toggleFolder = () => {
-    setExpanded(!expanded);
-  };
+  const toggleFolder = useCallback(() => {
+    setExpanded((prev) => !prev);
+  }, []);
+
+  const sortedChildren = useMemo(
+    () => sortDirectoryItemsByType(folder.children),
+    [folder.children]
+  );
+
+  const handleMouseEnter = useCallback(() => {
+    handleMouseHover(folder.id);
+  }, [handleMouseHover, folder.id]);
+
+  const handleMouseLeave = useCallback(() => {
+    handleMouseHover(null);
+  }, [handleMouseHover]);
 
   return (
     <div className="folder">
@@ -22,8 +35,8 @@ const Folder = ({ folder }) => {
           }`,
         }}
         className="row-center"
-        onMouseEnter={() => handleMouseHover(folder.id)}
-        onMouseLeave={() => handleMouseHover(null)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div className="row-center">
           {expanded ? (
@@ -40,13 +53,15 @@ const Folder = ({ folder }) => {
       </div>
       {expanded && folder.children && (
         <div style={{ marginLeft: "20px" }}>
-          {sortDirectoryItemsByType(folder.children).map((child) => (
+          {sortedChildren.map((child) => (
             <DirectoryItem key={child.id} item={child} />
           ))}
         </div>
       )}
     </div>
   );
-};
+});
+
+Folder.displayName = "Folder";
 
 export default Folder;

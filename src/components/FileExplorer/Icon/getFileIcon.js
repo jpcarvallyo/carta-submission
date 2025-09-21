@@ -14,52 +14,25 @@ const fileTypeIcons = {
   yarnFile: Icons.YarnFileIcon,
 };
 
+// Object lookup for better performance than switch statement
+const iconMap = {
+  gitignore: "gitFile",
+  arrowRight: "arrowRight",
+  arrowDown: "arrowDown",
+  md: "readmeFile",
+  css: "cssFile",
+  js: "jsFile",
+  json: "jsonFile",
+  png: "imageFile",
+  jpg: "imageFile",
+  ico: "imageFile",
+  jpeg: "imageFile",
+  svg: "imageFile",
+  lock: "yarnFile",
+  delete: "x",
+};
+
 export const getFileIcon = (type) => {
-  switch (type) {
-    case "gitignore": {
-      return fileTypeIcons.gitFile;
-    }
-    case "arrowRight": {
-      return fileTypeIcons.arrowRight;
-    }
-    case "arrowDown": {
-      return fileTypeIcons.arrowDown;
-    }
-    case "md": {
-      return fileTypeIcons.readmeFile;
-    }
-    case "css": {
-      return fileTypeIcons.cssFile;
-    }
-    case "js": {
-      return fileTypeIcons.jsFile;
-    }
-    case "json": {
-      return fileTypeIcons.jsonFile;
-    }
-    case "png": {
-      return fileTypeIcons.imageFile;
-    }
-    case "jpg": {
-      return fileTypeIcons.imageFile;
-    }
-    case "ico": {
-      return fileTypeIcons.imageFile;
-    }
-    case "jpeg": {
-      return fileTypeIcons.imageFile;
-    }
-    case "svg": {
-      return fileTypeIcons.imageFile;
-    }
-    case "lock": {
-      return fileTypeIcons.yarnFile;
-    }
-    case "delete": {
-      return fileTypeIcons.x;
-    }
-    default: {
-      return fileTypeIcons.defaultFile;
-    }
-  }
+  const iconType = iconMap[type] || "defaultFile";
+  return fileTypeIcons[iconType];
 };

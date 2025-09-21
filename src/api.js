@@ -153,10 +153,12 @@ const deleteById = (node, id, mutate) => ({
 });
 
 // Exports
-export default {
+const directoryUtils = {
   getDirectoryTree: async () => directoryTree,
   deleteById: async (id) => {
     directoryTree = deleteById(directoryTree, id);
     return directoryTree;
   },
 };
+
+export default directoryUtils;

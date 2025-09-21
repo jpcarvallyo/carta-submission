@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { useFileExplorer } from "../../contexts";
 import Icon from "../Icon";
 import { getFileExtension } from "../../../utils";
 
-const File = ({ file }) => {
+const File = React.memo(({ file }) => {
   const { handleMouseHover, hoveredItemId } = useFileExplorer();
+
+  const fileExtension = useMemo(() => getFileExtension(file.name), [file.name]);
+
+  const handleMouseEnter = useCallback(() => {
+    handleMouseHover(file.id);
+  }, [handleMouseHover, file.id]);
+
+  const handleMouseLeave = useCallback(() => {
+    handleMouseHover(null);
+  }, [handleMouseHover]);
 
   return (
     <div
@@ -12,11 +22,11 @@ const File = ({ file }) => {
       style={{
         justifyContent: `${hoveredItemId === file.id ? "space-between" : ""}`,
       }}
-      onMouseEnter={() => handleMouseHover(file.id)}
-      onMouseLeave={() => handleMouseHover(null)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="row-center">
-        <Icon type={getFileExtension(file.name)} />
+        <Icon type={fileExtension} />
         <p className={hoveredItemId === file.id ? "highlighted-white" : ""}>
           {file.name}
         </p>
@@ -24,6 +34,8 @@ const File = ({ file }) => {
       {hoveredItemId === file.id ? <Icon type={"delete"} /> : null}
     </div>
   );
-};
+});
+
+File.displayName = "File";
 
 export default File;
